@@ -179,7 +179,14 @@ class ContClass(Utility):
                         initargs['initcycle'] = v   # Dictionary w/ cycle, name, and tangent information
 
                 # Save initial point information
-                initargs['initpoint'] = initargs['initpoint'].copy().todict()
+                initPoint = {}
+                if 'curvename' in locals() and curvename in self.curves:
+                    initPoint = self.curves[curvename].parsdict.copy()
+
+                initPoint.update(initargs['initpoint'].copy().todict())
+                initargs['initpoint'] = initPoint
+
+                # initargs['initpoint'] = initargs['initpoint'].copy().todict()
                 #for p in initargs['freepars']:
                 #    if p not in initargs['initpoint'].keys():
                 #        initargs['initpoint'][p] = self.model.pars[p]
